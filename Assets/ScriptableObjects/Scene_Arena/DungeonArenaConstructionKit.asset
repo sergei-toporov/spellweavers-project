@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a0f33a6686ae244a8d40ee21513640, type: 3}
+  m_Name: DungeonArenaConstructionKit
+  m_EditorClassIdentifier: 
+  walls:
+  - {fileID: 4632071327707608832, guid: 4b3268ba163583a458894d2d15b6202a, type: 3}
+  floors:
+  - {fileID: 6842473903758843800, guid: 79020c7b683927046b10b5e6c549aeec, type: 3}
+  - {fileID: 204128966247755278, guid: 4e433542a566f2a4e8a447956a27cea5, type: 3}
+  - {fileID: 5251560794702166895, guid: 69830d39184c25844b74cfbb8ecebaf3, type: 3}
+  - {fileID: 8335828709641060223, guid: ea013220281b7264e95224ff0e769215, type: 3}
+  - {fileID: 1299890645242050241, guid: f9b59291fa3114647bb2ef2e96a9eb74, type: 3}
+  obstacles:
+  - {fileID: 4165914561147676762, guid: a30ad90034d0fe9438deddc6f20349e7, type: 3}
+  - {fileID: 380933518054008718, guid: 8acada18fb3755545a8f93741950b17c, type: 3}

@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46e5c32abbe08441ada03c53c06ddc2, type: 3}
+  m_Name: PlayerClassesList
+  m_EditorClassIdentifier: 
+  collection:
+    list:
+    - Key: Player_Ranger
+      Value:
+        defaultName: Ranger
+        defaultPrefab: {fileID: 2845310602833221685, guid: 83887d255693bc14292cc1b986562d9a, type: 3}
+        baseHealth: 309
+        baseMana: 45
+        baseMovementSpeed: 6
+        baseAttacksPerMinute: 80
+        baseAttackRange: 40
+        baseDamage: 3
+        baseDamageRadius: 0
+        baseHealthRegeneration: 999
+        baseManaRegeneration: 0.8
+        weaponHitterPrefab: {fileID: 1039250564346344275, guid: 711afe121f6fd0f42870704762b4a7f6, type: 3}
+        monsterDifficulty: 0
+    - Key: Player_Warrior
+      Value:
+        defaultName: Warrior
+        defaultPrefab: {fileID: 9070152293999701846, guid: add7b7526d57b20428848ec3772a304a, type: 3}
+        baseHealth: 459
+        baseMana: 10
+        baseMovementSpeed: 4
+        baseAttacksPerMinute: 40
+        baseAttackRange: 1
+        baseDamage: 10
+        baseDamageRadius: 0.02
+        baseHealthRegeneration: 999
+        baseManaRegeneration: 0.6
+        weaponHitterPrefab: {fileID: 343810655503303069, guid: 0c2da096ac94ce64ab9b9eeff143e295, type: 3}
+        monsterDifficulty: 0
+    - Key: Player_Mage
+      Value:
+        defaultName: Mage
+        defaultPrefab: {fileID: 7430552884334164416, guid: 98706fb1c07a49d4ca7a451f516b49fd, type: 3}
+        baseHealth: 1599
+        baseMana: 60
+        baseMovementSpeed: 4.9
+        baseAttacksPerMinute: 24.9
+        baseAttackRange: 65.9
+        baseDamage: 5.1
+        baseDamageRadius: 1.5
+        baseHealthRegeneration: 999
+        baseManaRegeneration: 2.1
+        weaponHitterPrefab: {fileID: 5764970848307934579, guid: 56bd59144072b14418fc1f23b46e955d, type: 3}
+        monsterDifficulty: 0
+    keyCollision: 0
