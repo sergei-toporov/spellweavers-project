@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SpawnableMonster : SpawnableBase
 {
     protected CharacterController controller;
     public CharacterController Controller { get => controller ?? GetComponent<CharacterController>(); }
+
+    public Vector3 targetPos = Vector3.zero;
 
     protected void Update()
     {
@@ -37,10 +40,7 @@ public class SpawnableMonster : SpawnableBase
             ArenaManager.Manager.Player.transform.position.z
             );
         transform.LookAt(lookAt);
-
-        Vector3 dir = (ArenaManager.Manager.Player.transform.position - transform.position).normalized;
-        dir.y = -9.81f;
-
-        Controller.SimpleMove(charStats.movementSpeed * dir);
+        Controller.SimpleMove(targetPos);
     }
+
 }

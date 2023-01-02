@@ -5,12 +5,14 @@ using UnityEngine;
 public class MonsterController : MonoBehaviour
 {
     protected SpawnableMonster baseObject;
+    public SpawnableMonster BaseObject { get => baseObject; }
     protected float attackDelayTime;
     protected WaitForSeconds attackDelayObject;
     protected OnCharacterEmitterController onCharacterEmitter;
 
     [SerializeField] protected bool canAttack = false;
     [SerializeField] protected bool isAttacking = false;
+    public bool inAttackRange = false;
 
     protected void Start()
     {
@@ -21,7 +23,8 @@ public class MonsterController : MonoBehaviour
 
     protected void Update()
     {
-        if (!isAttacking && Vector3.Distance(transform.position, ArenaManager.Manager.Player.transform.position) <= baseObject.CharStats.attackRange)
+        //if (!isAttacking && Vector3.Distance(transform.position, ArenaManager.Manager.Player.transform.position) <= baseObject.CharStats.attackRange)
+        if (!isAttacking && inAttackRange)
         {
             Attack();
         }
@@ -31,7 +34,6 @@ public class MonsterController : MonoBehaviour
     protected void SetAttackDelayParameters()
     {
         attackDelayTime = 60.0f / baseObject.CharStats.attacksPerMinute;
-        Debug.Log($"{name} attack delay: {attackDelayTime} / {baseObject.CharStats.attacksPerMinute}");
         canAttack = true;
         attackDelayObject = new WaitForSeconds(attackDelayTime);
     }
