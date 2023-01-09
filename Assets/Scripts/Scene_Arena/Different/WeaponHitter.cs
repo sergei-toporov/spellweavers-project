@@ -1,3 +1,4 @@
+using Spellweavers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,10 +12,27 @@ public class WeaponHitter : MonoBehaviour
     protected WaitForSeconds ttlObject;
     protected SpawnableBase parent;
     protected GenericDictionary<SpawnableBase, string> targets;
+
+    [SerializeField] protected string onCreateVFX;
+    [SerializeField] protected string lifetimeVFX;
+    [SerializeField] protected string onDestroyVFX;
     void Start()
     {
         startPosition = transform.position;
         transform.Rotate(transform.forward);
+        Debug.Log(VFXManager.Manager.ParticleVFXCollection.GetItemByKey(lifetimeVFX).prefab);
+
+        ParticleSystem lifeVFX = VFXManager.Manager.ParticleVFXCollection.GetItemByKey(lifetimeVFX).prefab;        
+
+        if (lifeVFX != null)
+        {
+            lifeVFX = Instantiate(lifeVFX, transform.position, transform.rotation);
+            lifeVFX.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
+            lifeVFX.transform.SetParent(gameObject.transform);
+            lifeVFX.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            lifeVFX.Play();
+        }        
+
         StartCoroutine(LifeExpirationCoroutine());
         ttlObject = new WaitForSeconds(ttl);
     }
@@ -26,6 +44,17 @@ public class WeaponHitter : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        ParticleSystem vfx = VFXManager.Manager.ParticleVFXCollection.GetItemByKey(onDestroyVFX).prefab;
+        if (vfx != null)
+        {
+            vfx = Instantiate(vfx, transform.position, transform.rotation);
+            var vfxMain = vfx.main;
+            vfxMain.startSizeX = parent.CharStats.damageRadius;
+            vfxMain.startSizeY = parent.CharStats.damageRadius / 2.0f;
+
+            vfx.Play();
+        }
+
         if (parent != null && collision.gameObject.TryGetComponent(out SpawnableBase target)) {
             targets = new GenericDictionary<SpawnableBase, string>();
             targets.Add(target, "");
@@ -44,7 +73,6 @@ public class WeaponHitter : MonoBehaviour
                 hitObject.TakeDamage(parent);
             }
         }
-
 
         DestroyObject();
     }

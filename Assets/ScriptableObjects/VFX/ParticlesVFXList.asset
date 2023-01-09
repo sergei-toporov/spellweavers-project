@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e56583ff15cfff498a427aaffdf455f, type: 3}
+  m_Name: ParticlesVFXList
+  m_EditorClassIdentifier: 
+  collection:
+    list:
+    - Key: Fireball_Flight
+      Value:
+        prefab: {fileID: 6104371476588319139, guid: c0f2a0372264c1c4a9785ab80e8ffe8b, type: 3}
+    - Key: Fireball_Explosion
+      Value:
+        prefab: {fileID: 7980090679235572708, guid: 85eeaa3646a982a40bae267adb4b7641, type: 3}
+    - Key: emptyItem
+      Value:
+        prefab: {fileID: 0}
+    keyCollision: 0

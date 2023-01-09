@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: b61422791aeff414dae7dfc4e15778d4, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 64fe79a980c74c248b0ea11d33ba3dfb, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2777,10 +2777,10 @@ MonoBehaviour:
   spawnedMonsters: 0
   totalToSpawn: 0
   waveConfig:
-    lightMobsAmount: 100000
-    midMobsAmount: 100000
-    hardMobsAmount: 1000000
-    bossesAmount: 100000000
+    lightMobsAmount: 15
+    midMobsAmount: 0
+    hardMobsAmount: 0
+    bossesAmount: 0
     spawnedLightMobsAmount: 0
     spawnedMidMobsAmount: 0
     spawnedHardMobsAmount: 0
@@ -2952,6 +2952,7 @@ Transform:
   - {fileID: 1521403106}
   - {fileID: 203563542}
   - {fileID: 54769848}
+  - {fileID: 1644761166}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6110,6 +6111,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTraceable: 0
+--- !u!1 &1644761165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1644761166}
+  - component: {fileID: 1644761167}
+  m_Layer: 0
+  m_Name: VFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1644761166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644761165}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 939917521}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1644761167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644761165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503db5e752d733b4d9ac67333083b0e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleVFXCollection: {fileID: 11400000, guid: 7919c8682e54a7e4e9e78ef4cadc9368, type: 2}
 --- !u!1 &1672672430
 GameObject:
   m_ObjectHideFlags: 0
