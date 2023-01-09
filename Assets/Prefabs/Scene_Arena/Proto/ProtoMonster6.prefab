@@ -158,6 +158,7 @@ MonoBehaviour:
     weaponHitterPrefab: {fileID: 0}
     monsterDifficulty: 0
   isReady: 0
+  targetPos: {x: 0, y: 0, z: 0}
 --- !u!143 &2222219561985275993
 CharacterController:
   m_ObjectHideFlags: 0
@@ -198,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canAttack: 0
   isAttacking: 0
+  inAttackRange: 0
 --- !u!54 &5769302799016080823
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -221,7 +223,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 1
