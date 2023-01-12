@@ -44,7 +44,7 @@ public class ArenaResourceManager : MonoBehaviour
     [SerializeField] protected List<CollectibleStuff> availableCollectibleStuff;
     public List<CollectibleStuff> AvailableCollectibleStuff { get => availableCollectibleStuff; }
 
-    protected float resourcesToSpend = 1000.0f;
+    protected float resourcesToSpend = 0.0f;
     public float ResourcesToSpend { get => resourcesToSpend; }
 
     protected void Awake()

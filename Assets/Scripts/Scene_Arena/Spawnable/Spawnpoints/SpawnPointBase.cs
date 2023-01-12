@@ -25,10 +25,10 @@ public class SpawnPointBase : MonoBehaviour
         
     }
 
-    public void SpawnCharacter()
+    public void SpawnCharacter(Vector3 position)
     {
         if (spawnableClass.defaultPrefab != null) {
-            SpawnableBase spawnedCharacter = Instantiate(spawnableClass.defaultPrefab, transform.position, Quaternion.identity);
+            SpawnableBase spawnedCharacter = Instantiate(spawnableClass.defaultPrefab, position, Quaternion.identity);            
             spawnedCharacter.AddBaseStats(spawnableClass);
         }
         

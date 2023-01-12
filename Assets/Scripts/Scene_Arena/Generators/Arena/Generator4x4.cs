@@ -11,7 +11,7 @@ public class Generator4x4 : ArenaGeneratorBase
     protected Vector3 floorMeshSize;
     protected Vector3 wallMeshSize;
     protected Vector2 arenaDimensions;
-    protected float wallPadding = 2.0f;
+    protected float wallPadding = 4.0f;
     protected Vector2Int arenaSizes;
 
     protected ArenaRootObject arenaRootObject;

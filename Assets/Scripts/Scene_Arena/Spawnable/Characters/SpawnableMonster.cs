@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,6 +9,10 @@ public class SpawnableMonster : SpawnableBase
 
     public Vector3 targetPos = Vector3.zero;
 
+    protected void OnEnable()
+    {
+        StartCoroutine(CheckVerticalPositionCoroutine());
+    }
     protected void Update()
     {
         if (isReady)
@@ -16,9 +21,13 @@ public class SpawnableMonster : SpawnableBase
         }        
     }
 
+    protected void OnDisable()
+    {
+        StopCoroutine(CheckVerticalPositionCoroutine());
+    }
+
     protected override void CharacterDeath()
     {
-        Debug.Log($"CharacterDeath called by '{name}");
         if (Random.value < 0.5f && ArenaResourceManager.Manager.AvailableCollectibleStuff.Count > 0)
         {
             CollectibleStuff collectibleStuff = ArenaResourceManager.Manager.GetRandomCollectibleStuff();
@@ -41,6 +50,26 @@ public class SpawnableMonster : SpawnableBase
             );
         transform.LookAt(lookAt);
         Controller.SimpleMove(targetPos);
+    }
+
+    protected IEnumerator CheckVerticalPositionCoroutine()
+    {
+        while (true)
+        {
+            if (Mathf.Abs(transform.position.y) > 100.0f)
+            {
+                Controller.enabled = false;
+                Vector3 pos = new Vector3(
+                    ArenaManager.Manager.SpawnPointPlayer.transform.position.x,
+                    2.0f,
+                    ArenaManager.Manager.SpawnPointPlayer.transform.position.z
+                    );
+                transform.position = pos;
+                Controller.enabled = true;
+            }
+
+            yield return new WaitForSeconds(1.5f);
+        }
     }
 
 }

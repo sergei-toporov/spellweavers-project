@@ -22,12 +22,12 @@ MonoBehaviour:
         baseMana: 19
         baseMovementSpeed: 1
         baseAttacksPerMinute: 15
-        baseAttackRange: 9
+        baseAttackRange: 30
         baseDamage: 3
         baseDamageRadius: 0.6
         baseHealthRegeneration: 0.2
         baseManaRegeneration: 1
-        weaponHitterPrefab: {fileID: 5764970848307934579, guid: 830f1db4fae21a044851ab8ade26c0c5, type: 3}
+        weaponHitterPrefab: {fileID: 2662689064037323296, guid: 830f1db4fae21a044851ab8ade26c0c5, type: 3}
         monsterDifficulty: 0
     - Key: AI_Ranger_Easy
       Value:

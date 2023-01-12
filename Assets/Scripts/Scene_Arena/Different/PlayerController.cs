@@ -97,20 +97,23 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
-        isAttacking = true;
-        if (playerObject.HitterPrefab != null)
+        if (!isAttacking)
         {
-            WeaponHitter strike = Instantiate(playerObject.HitterPrefab, onCharacterEmitter.transform.position, onCharacterEmitter.transform.rotation);
-            strike.SetParent(playerObject);
-            if (strike.TryGetComponent(out Rigidbody strikeRb))
+            isAttacking = true;
+            if (playerObject.HitterPrefab != null)
             {
-                strikeRb.AddForce(onCharacterEmitter.transform.forward, ForceMode.Impulse);
+                WeaponHitter strike = Instantiate(playerObject.HitterPrefab, onCharacterEmitter.transform.position, onCharacterEmitter.transform.rotation);
+                strike.SetParent(playerObject);
+                if (strike.TryGetComponent(out Rigidbody strikeRb))
+                {
+                    strikeRb.AddForce(onCharacterEmitter.transform.forward, ForceMode.Impulse);
+                }
             }
-        }
-        StartCoroutine(AttackDelay());
+            StartCoroutine(AttackDelay());
+        }        
     }
 
-    protected void SetAttackDelayParameters()
+    public void SetAttackDelayParameters()
     {
         attackDelayTime = 60.0f / playerObject.CharStats.attacksPerMinute;
         canAttack = true;
