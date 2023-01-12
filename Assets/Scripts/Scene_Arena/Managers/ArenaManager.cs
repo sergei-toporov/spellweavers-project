@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Spellweavers;
+using UnityEngine.UIElements;
 
 public class ArenaManager : MonoBehaviour
 {
@@ -14,6 +16,9 @@ public class ArenaManager : MonoBehaviour
     [Tooltip("A border values for the arena size in one dimension. These values will be used to get amount of rows and columns. If any value is lesser or bigger than the default, it'll be reset to one of the default limits.")]
     
     [SerializeField] protected Vector2Int arenaSizeLimits;
+
+    [SerializeField] protected ArenaWaveController waveController;
+    public ArenaWaveController WaveController { get => waveController ?? GetComponent<ArenaWaveController>(); }
 
     protected bool hasGeneratedArena = false;
 
@@ -40,24 +45,18 @@ public class ArenaManager : MonoBehaviour
 
     [SerializeField] protected int totalToSpawn = 0;
 
+    [SerializeField] protected int maxMonstersPerTime = 200;
+    public int MaxMonstersPerTime { get => maxMonstersPerTime; }
+
     protected List<SpawnPointMonster> spawnPointMonsters;
+    public List<SpawnPointMonster> SpawnPointMonsters { get => spawnPointMonsters; }
 
     protected SpawnPointPlayer spawnPointPlayer;
+    public SpawnPointPlayer SpawnPointPlayer { get => spawnPointPlayer; }
 
-    [Serializable]
-    public struct WaveConfig
-    {
-        public int lightMobsAmount;
-        public int midMobsAmount;
-        public int hardMobsAmount;
-        public int bossesAmount;
-        [HideInInspector] public int spawnedLightMobsAmount;
-        [HideInInspector] public int spawnedMidMobsAmount;
-        [HideInInspector] public int spawnedHardMobsAmount;
-        [HideInInspector] public int spawnedBossesAmount;
-    }
+    [SerializeField] List<Vector3> aiSpawnPositons;
 
-    [SerializeField] protected WaveConfig waveConfig;
+    [SerializeField] List<string> toSpawn;
 
     protected void Awake()
     {
@@ -77,7 +76,6 @@ public class ArenaManager : MonoBehaviour
         }
 
         InitialConfiguration();
-        //GenerateArena();
     }
 
     protected void Update()
@@ -89,9 +87,9 @@ public class ArenaManager : MonoBehaviour
 
         if (spawnedMonsters <= 0.0f)
         {
-            RemoveSpawnedMonsters();
-            ConfigureWave();
-            StartCoroutine(MonsterSpawnCoroutine());
+            //RemoveSpawnedMonsters();
+            //ConfigureWave();
+            //StartCoroutine(MonsterSpawnCoroutine());
         }
     }
 
@@ -123,6 +121,7 @@ public class ArenaManager : MonoBehaviour
     {
         if (!hasGeneratedArena)
         {
+            GetComponent<ArenaWaveController>().Controller.Config.InitCollection();
             CreateRootArenaObject();
             activeGenerator = Instantiate(arenaGenerators[UnityEngine.Random.Range(0, arenaGenerators.Count)]);
             arenaSizes = new Vector2Int (GetLimitValue(), GetLimitValue());
@@ -131,7 +130,6 @@ public class ArenaManager : MonoBehaviour
             spawnPointMonsters = activeGenerator.GenerateMonsterSpawnPoints();
             StaticBatchingUtility.Combine(arenaObject.GetComponentInChildren<ArenaConstructionObject>().gameObject);
             SetPlayerObject();
-
             hasGeneratedArena = true;
         }
         else
@@ -142,7 +140,6 @@ public class ArenaManager : MonoBehaviour
             hasGeneratedArena = false;
             GenerateArena();
         }
-
     }
 
     protected int GetLimitValue()
@@ -188,94 +185,60 @@ public class ArenaManager : MonoBehaviour
     protected void SetPlayerObject()
     {
         spawnPointPlayer.SetClass(ArenaResourceManager.Manager.PlayerClassesList.GetRandomKey());
-        spawnPointPlayer.SpawnCharacter();
+        spawnPointPlayer.SpawnCharacter(spawnPointPlayer.transform.position);
         player = FindObjectOfType<PlayerController>();
         playerBase = player.GetComponent<SpawnablePlayer>();
     }
 
     protected void ConfigureWave()
     {
-        if (waveNumber > 0)
-        {
-            waveConfig.lightMobsAmount++;
+        WaveController.PrepareWave();
+    }
 
-            if (waveNumber % 4 == 0)
-            {
-                waveConfig.midMobsAmount++;
-            }
-
-            if (waveNumber % 8 == 0)
-            {
-                waveConfig.hardMobsAmount++;
-            }
-
-            if (waveNumber % 20 == 0)
-            {
-                waveConfig.bossesAmount++;
-            }
-        }
-
-        waveConfig.spawnedLightMobsAmount = 0;
-        waveConfig.spawnedMidMobsAmount = 0;
-        waveConfig.spawnedHardMobsAmount = 0;
-        waveConfig.spawnedBossesAmount = 0;
-
-        spawnedMonsters = 0;
-        totalToSpawn = waveConfig.lightMobsAmount + waveConfig.midMobsAmount + waveConfig.hardMobsAmount + waveConfig.bossesAmount;
-        waveNumber++;
+    protected void SetAiSpawnParams()
+    {
+        toSpawn = WaveController.WaveMonsters.SliceFromStart(maxMonstersPerTime);
+        aiSpawnPositons = ArenaJobManager.Manager.GetAiSpawnPositions(toSpawn.Count);
     }
 
     protected IEnumerator MonsterSpawnCoroutine()
     {
-        while (spawnedMonsters < totalToSpawn)
+        while (WaveController.WaveMonsters.Count > 0 || toSpawn.Count > 0)
         {
-            if (waveConfig.spawnedLightMobsAmount < waveConfig.lightMobsAmount)
+            if (toSpawn.Count < 1)
             {
-                if (SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Easy))
-                {
-                    waveConfig.spawnedLightMobsAmount++;
-                    spawnedMonsters++;
-                }                
+                SetAiSpawnParams();
             }
 
-            if (waveConfig.spawnedMidMobsAmount < waveConfig.midMobsAmount)
+            bool canSpawn = (FindObjectsOfType<SpawnableMonster>().Length <= maxMonstersPerTime && maxMonstersPerTime > 0) || maxMonstersPerTime < 1;
+
+            if (aiSpawnPositons.Count > 0 && toSpawn.Count > 0 && canSpawn)
             {
-                if ((waveConfig.spawnedLightMobsAmount == waveConfig.lightMobsAmount) || waveConfig.spawnedLightMobsAmount % 3 == 0)
+                SpawnPointMonster point = GetRandomMonsterSpawnpoint();
+                int spawnAmount = toSpawn.Count <= 10 ? toSpawn.Count : 10;
+                for (int i = 0; i < spawnAmount; i++)
                 {
-                    if (SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Medium))
+                    Vector3 position = aiSpawnPositons[aiSpawnPositons.Count - 1];
+                    string key = toSpawn[toSpawn.Count - 1];
+                    if (key != null)
                     {
-                        waveConfig.spawnedMidMobsAmount++;
-                        spawnedMonsters++;
-                    }                    
-                }
-            }
-
-            if (waveConfig.spawnedHardMobsAmount < waveConfig.hardMobsAmount)
-            {
-                if ((waveConfig.spawnedLightMobsAmount == waveConfig.lightMobsAmount) || waveConfig.spawnedLightMobsAmount % 6 == 0)
-                {
-                    if (SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Hard))
-                    {
-                        waveConfig.spawnedHardMobsAmount++;
-                        spawnedMonsters++;
-                    }                    
-                }
-
-
-                if (waveConfig.spawnedBossesAmount < waveConfig.bossesAmount)
-                {
-                    if ((waveConfig.spawnedLightMobsAmount == waveConfig.lightMobsAmount) || waveConfig.spawnedLightMobsAmount % 10 == 0)
-                    {
-                        if (SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels.Boss))
-                        {
-                            waveConfig.spawnedBossesAmount++;
-                            spawnedMonsters++;
-                        }                        
+                        point.SetClass(key);
+                        point.SpawnCharacter(position);
                     }
+                    aiSpawnPositons.RemoveAt(aiSpawnPositons.Count - 1);
+                    toSpawn.RemoveAt(toSpawn.Count - 1);
                 }
             }
             yield return new WaitForSeconds(1f);
         }
+
+        if (FindObjectsOfType<SpawnableMonster>().Length == 0)
+        {
+            ConfigureWave();
+        }        
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(MonsterSpawnCoroutine());
+
     }
 
     protected SpawnPointMonster GetRandomMonsterSpawnpoint()
@@ -283,14 +246,14 @@ public class ArenaManager : MonoBehaviour
         return spawnPointMonsters[UnityEngine.Random.Range(0, spawnPointMonsters.Count)];
     }
 
-    protected bool SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels diffLevel)
+    protected bool SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels diffLevel, Vector3 position)
     {
         SpawnPointMonster point = GetRandomMonsterSpawnpoint();
         string key = ArenaResourceManager.Manager.MonsterClassesList.GetRandomKeyOfDifficulty(diffLevel);
         if (key != null)
         {
             point.SetClass(key);
-            point.SpawnCharacter();
+            point.SpawnCharacter(position);
             return true;
         }
 

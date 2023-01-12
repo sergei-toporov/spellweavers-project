@@ -56,7 +56,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0.3
+    scalar: 0.05
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -4918,7 +4918,7 @@ Transform:
   m_Children:
   - {fileID: 7739248378951993283}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &7980090679235572708
 ParticleSystem:

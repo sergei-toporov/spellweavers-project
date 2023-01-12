@@ -2736,6 +2736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 902350720}
   - component: {fileID: 902350721}
+  - component: {fileID: 902350722}
   m_Layer: 0
   m_Name: ArenaManager
   m_TagString: Untagged
@@ -2771,20 +2772,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arenaSizeLimits: {x: 25, y: 30}
+  waveController: {fileID: 0}
   arenaGenerators:
   - {fileID: 8238802525822190388, guid: 61790e7fc9e3be242a0a1de822107f10, type: 3}
   waveNumber: 0
   spawnedMonsters: 0
   totalToSpawn: 0
-  waveConfig:
-    lightMobsAmount: 15
-    midMobsAmount: 0
-    hardMobsAmount: 0
-    bossesAmount: 0
-    spawnedLightMobsAmount: 0
-    spawnedMidMobsAmount: 0
-    spawnedHardMobsAmount: 0
-    spawnedBossesAmount: 0
+  maxMonstersPerTime: 125
+  aiSpawnPositons: []
+  toSpawn: []
+--- !u!114 &902350722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902350719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e3f1348a7cfa042aa1919258d04729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  config: {fileID: 11400000, guid: 6d9953e7fbdfe924994d03ae2620f35e, type: 2}
+  waveMonsters: []
+  waveMonstersClean: []
 --- !u!1 &908600554
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,8 +20,6 @@ public class WeaponHitter : MonoBehaviour
     {
         startPosition = transform.position;
         transform.Rotate(transform.forward);
-        Debug.Log(VFXManager.Manager.ParticleVFXCollection.GetItemByKey(lifetimeVFX).prefab);
-
         ParticleSystem lifeVFX = VFXManager.Manager.ParticleVFXCollection.GetItemByKey(lifetimeVFX).prefab;        
 
         if (lifeVFX != null)

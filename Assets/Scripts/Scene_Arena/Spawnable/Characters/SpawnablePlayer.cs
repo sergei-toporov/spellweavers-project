@@ -42,6 +42,7 @@ public class SpawnablePlayer : SpawnableBase
                     diff = BaseStats.baseAttacksPerMinute + BaseStats.baseAttacksPerMinute / 100.0f * ability.changeValue * ability.currentLevel - charStats.attacksPerMinuteBase;
                     charStats.attacksPerMinuteBase += diff;
                     charStats.attacksPerMinute += diff;
+                    controller.SetAttackDelayParameters();
                     break;
                 case AffectedStat.DamageBase:
                     diff = BaseStats.baseDamage + BaseStats.baseDamage / 100.0f * ability.changeValue * ability.currentLevel - charStats.damageBase;
