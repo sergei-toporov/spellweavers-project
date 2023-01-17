@@ -17,7 +17,7 @@ MonoBehaviour:
     - Key: 0
       Value:
         startAmountOfMonsters: 10
-        maxAmountOfMonsters: 100
+        maxAmountOfMonsters: 125
         currentAmountOfMonsters: 0
         increaseNumberOnWave: 1
     - Key: 1
@@ -36,6 +36,6 @@ MonoBehaviour:
       Value:
         startAmountOfMonsters: 1
         maxAmountOfMonsters: 20
-        currentAmountOfMonsters: 0
+        currentAmountOfMonsters: 1
         increaseNumberOnWave: 20
     keyCollision: 0

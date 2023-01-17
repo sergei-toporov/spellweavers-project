@@ -64,6 +64,8 @@ abstract public class SpawnableBase : MonoBehaviour
 
     protected WaitForSeconds secondDelayObject = new WaitForSeconds(1.0f);
 
+    protected Vector3 startPos;
+
 
     protected virtual void Awake()
     {
@@ -85,6 +87,9 @@ abstract public class SpawnableBase : MonoBehaviour
         {
             spawnableCanvas.gameObject.SetActive(false);
         }
+
+        startPos = transform.position;
+        className = baseStats.defaultName;
     }
 
     protected bool InitialCheck()

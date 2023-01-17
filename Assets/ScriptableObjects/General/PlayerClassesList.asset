@@ -20,8 +20,8 @@ MonoBehaviour:
         defaultPrefab: {fileID: 2845310602833221685, guid: 83887d255693bc14292cc1b986562d9a, type: 3}
         baseHealth: 30
         baseMana: 45
-        baseMovementSpeed: 6
-        baseAttacksPerMinute: 80
+        baseMovementSpeed: 8
+        baseAttacksPerMinute: 120
         baseAttackRange: 40
         baseDamage: 3
         baseDamageRadius: 0
@@ -35,8 +35,8 @@ MonoBehaviour:
         defaultPrefab: {fileID: 9070152293999701846, guid: add7b7526d57b20428848ec3772a304a, type: 3}
         baseHealth: 45
         baseMana: 10
-        baseMovementSpeed: 4
-        baseAttacksPerMinute: 40
+        baseMovementSpeed: 6
+        baseAttacksPerMinute: 80
         baseAttackRange: 1
         baseDamage: 10
         baseDamageRadius: 0.02
@@ -50,8 +50,8 @@ MonoBehaviour:
         defaultPrefab: {fileID: 7430552884334164416, guid: 98706fb1c07a49d4ca7a451f516b49fd, type: 3}
         baseHealth: 15
         baseMana: 60
-        baseMovementSpeed: 4.9
-        baseAttacksPerMinute: 24.9
+        baseMovementSpeed: 7
+        baseAttacksPerMinute: 40
         baseAttackRange: 65.9
         baseDamage: 5.1
         baseDamageRadius: 1.5

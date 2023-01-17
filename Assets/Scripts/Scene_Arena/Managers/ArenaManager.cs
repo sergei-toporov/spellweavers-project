@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Spellweavers;
-using UnityEngine.UIElements;
 
 public class ArenaManager : MonoBehaviour
 {
@@ -84,13 +82,6 @@ public class ArenaManager : MonoBehaviour
         {
             GenerateArena();
         }
-
-        if (spawnedMonsters <= 0.0f)
-        {
-            //RemoveSpawnedMonsters();
-            //ConfigureWave();
-            //StartCoroutine(MonsterSpawnCoroutine());
-        }
     }
 
     protected bool InitialChecks()
@@ -144,7 +135,7 @@ public class ArenaManager : MonoBehaviour
 
     protected int GetLimitValue()
     {
-        return UnityEngine.Random.Range(arenaSizeLimits.x, arenaSizeLimits.y + 1);
+        return Random.Range(arenaSizeLimits.x, arenaSizeLimits.y + 1);
     }
 
     protected void CreateRootArenaObject()
@@ -218,8 +209,8 @@ public class ArenaManager : MonoBehaviour
                 int spawnAmount = toSpawn.Count <= 10 ? toSpawn.Count : 10;
                 for (int i = 0; i < spawnAmount; i++)
                 {
-                    Vector3 position = aiSpawnPositons[aiSpawnPositons.Count - 1];
-                    string key = toSpawn[toSpawn.Count - 1];
+                    Vector3 position = aiSpawnPositons[^1];
+                    string key = toSpawn[^1];
                     if (key != null)
                     {
                         point.SetClass(key);
@@ -238,12 +229,11 @@ public class ArenaManager : MonoBehaviour
         }        
         yield return new WaitForSeconds(5f);
         StartCoroutine(MonsterSpawnCoroutine());
-
     }
 
     protected SpawnPointMonster GetRandomMonsterSpawnpoint()
     {
-        return spawnPointMonsters[UnityEngine.Random.Range(0, spawnPointMonsters.Count)];
+        return spawnPointMonsters[Random.Range(0, spawnPointMonsters.Count)];
     }
 
     protected bool SpawnRandomMonsterOfDifficultyLevel(MonsterDifficultyLevels diffLevel, Vector3 position)
@@ -259,11 +249,5 @@ public class ArenaManager : MonoBehaviour
 
         return false;        
     }
-
-    public void DecreaseSpawnedAmount()
-    {
-        spawnedMonsters--;
-    }
-
 
 }

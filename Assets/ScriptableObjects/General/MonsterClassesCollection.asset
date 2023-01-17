@@ -18,13 +18,13 @@ MonoBehaviour:
       Value:
         defaultName: Mage Weak
         defaultPrefab: {fileID: 4242925449829349072, guid: 532cb8e626fbaf745bd20cbb8ac33002, type: 3}
-        baseHealth: 10
-        baseMana: 19
-        baseMovementSpeed: 1
+        baseHealth: 6
+        baseMana: 20
+        baseMovementSpeed: 2
         baseAttacksPerMinute: 15
         baseAttackRange: 30
         baseDamage: 3
-        baseDamageRadius: 0.6
+        baseDamageRadius: 1
         baseHealthRegeneration: 0.2
         baseManaRegeneration: 1
         weaponHitterPrefab: {fileID: 2662689064037323296, guid: 830f1db4fae21a044851ab8ade26c0c5, type: 3}
@@ -33,14 +33,14 @@ MonoBehaviour:
       Value:
         defaultName: Ranger Weak
         defaultPrefab: {fileID: 3286285211130611615, guid: af352518ce9ac3a4bbfff0541e1a2fcb, type: 3}
-        baseHealth: 15
+        baseHealth: 9
         baseMana: 10
-        baseMovementSpeed: 2
+        baseMovementSpeed: 4
         baseAttacksPerMinute: 40
         baseAttackRange: 10
         baseDamage: 2
         baseDamageRadius: 0
-        baseHealthRegeneration: 0.4
+        baseHealthRegeneration: 0.3
         baseManaRegeneration: 0.5
         weaponHitterPrefab: {fileID: 1039250564346344275, guid: 228e0d968d52f3c4481acddad395de33, type: 3}
         monsterDifficulty: 0
@@ -48,14 +48,14 @@ MonoBehaviour:
       Value:
         defaultName: Warrior Easy
         defaultPrefab: {fileID: 6356326470243513372, guid: 396cb3f10664b0f4ba2285b1eb6364bc, type: 3}
-        baseHealth: 20
+        baseHealth: 12
         baseMana: 5
-        baseMovementSpeed: 1.5
+        baseMovementSpeed: 3
         baseAttacksPerMinute: 30
         baseAttackRange: 1.5
         baseDamage: 4
         baseDamageRadius: 0
-        baseHealthRegeneration: 0.6
+        baseHealthRegeneration: 0.4
         baseManaRegeneration: 0.2
         weaponHitterPrefab: {fileID: 343810655503303069, guid: 21856b378c6eb0d41bd843940c54d7b2, type: 3}
         monsterDifficulty: 0
@@ -63,14 +63,14 @@ MonoBehaviour:
       Value:
         defaultName: Warrior Medium
         defaultPrefab: {fileID: 7304397230368251354, guid: d6071cb8c63e8dc43931b9d083bfc46a, type: 3}
-        baseHealth: 30
+        baseHealth: 15
         baseMana: 10
         baseMovementSpeed: 2
         baseAttacksPerMinute: 40
         baseAttackRange: 1
         baseDamage: 6
         baseDamageRadius: 0
-        baseHealthRegeneration: 0.8
+        baseHealthRegeneration: 0.5
         baseManaRegeneration: 0.4
         weaponHitterPrefab: {fileID: 343810655503303069, guid: 21856b378c6eb0d41bd843940c54d7b2, type: 3}
         monsterDifficulty: 1
@@ -78,14 +78,14 @@ MonoBehaviour:
       Value:
         defaultName: Warrior Hard
         defaultPrefab: {fileID: 2135241314580349504, guid: c55050e9ff9884a4481da0e16c0c3c0e, type: 3}
-        baseHealth: 40
+        baseHealth: 18
         baseMana: 15
         baseMovementSpeed: 2.5
         baseAttacksPerMinute: 50
         baseAttackRange: 1
         baseDamage: 7
         baseDamageRadius: 0
-        baseHealthRegeneration: 1
+        baseHealthRegeneration: 0.6
         baseManaRegeneration: 0.6
         weaponHitterPrefab: {fileID: 343810655503303069, guid: 0c2da096ac94ce64ab9b9eeff143e295, type: 3}
         monsterDifficulty: 2
@@ -100,7 +100,7 @@ MonoBehaviour:
         baseAttackRange: 1
         baseDamage: 15
         baseDamageRadius: 0
-        baseHealthRegeneration: 1.5
+        baseHealthRegeneration: 0.1
         baseManaRegeneration: 1
         weaponHitterPrefab: {fileID: 343810655503303069, guid: 21856b378c6eb0d41bd843940c54d7b2, type: 3}
         monsterDifficulty: 3

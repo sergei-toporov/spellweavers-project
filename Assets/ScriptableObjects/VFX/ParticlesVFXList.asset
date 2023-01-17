@@ -17,9 +17,15 @@ MonoBehaviour:
     - Key: Fireball_Flight
       Value:
         prefab: {fileID: 6104371476588319139, guid: c0f2a0372264c1c4a9785ab80e8ffe8b, type: 3}
+    - Key: Fireball_Flight_Greenish
+      Value:
+        prefab: {fileID: 2736742826631991583, guid: 9b8f70259c59f2d4a8a7263a694fabf5, type: 3}
     - Key: Fireball_Explosion
       Value:
         prefab: {fileID: 7980090679235572708, guid: 85eeaa3646a982a40bae267adb4b7641, type: 3}
+    - Key: Fireball_Explosion_Greenish
+      Value:
+        prefab: {fileID: 524007551617622502, guid: 460a54d59e445a34997777dbe52f7952, type: 3}
     - Key: emptyItem
       Value:
         prefab: {fileID: 0}

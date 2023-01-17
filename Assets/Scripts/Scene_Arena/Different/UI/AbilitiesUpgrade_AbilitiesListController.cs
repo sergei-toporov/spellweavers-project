@@ -27,4 +27,10 @@ public class AbilitiesUpgrade_AbilitiesListController : MonoBehaviour
             }            
         }
     }
+
+    public void RefreshList()
+    {
+        buttonsBlock.gameObject.SetActive(false);
+        buttonsBlock.gameObject.SetActive(true);
+    }
 }
