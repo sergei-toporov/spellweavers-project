@@ -22,6 +22,9 @@ namespace Spellweavers
 
         [SerializeField] protected List<string> waveMonstersClean;
 
+        [SerializeField] protected float perWaveStatBonus = 0.05f;
+        public float PerWaveStatBonus { get => perWaveStatBonus; }
+
         public void PrepareWave()
         {
 

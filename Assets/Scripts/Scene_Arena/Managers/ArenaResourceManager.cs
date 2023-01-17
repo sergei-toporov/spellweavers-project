@@ -44,7 +44,7 @@ public class ArenaResourceManager : MonoBehaviour
     [SerializeField] protected List<CollectibleStuff> availableCollectibleStuff;
     public List<CollectibleStuff> AvailableCollectibleStuff { get => availableCollectibleStuff; }
 
-    protected float resourcesToSpend = 0.0f;
+    [SerializeField] protected float resourcesToSpend = 0.0f;
     public float ResourcesToSpend { get => resourcesToSpend; }
 
     protected void Awake()
@@ -146,7 +146,9 @@ public class ArenaResourceManager : MonoBehaviour
         {
             if (PlayerAbilitiesList.Collection[abilityKey].isActive)
             {
-                availablePlayerAbilities.Add(abilityKey, PlayerAbilitiesList.Collection[abilityKey]);
+                PlayerAbility ability = PlayerAbilitiesList.Collection[abilityKey];
+                ability.currentImprovementCost = ability.improvementCostBase;
+                availablePlayerAbilities.Add(abilityKey, ability);
             }
         }
     }
@@ -176,7 +178,7 @@ public class ArenaResourceManager : MonoBehaviour
 
     public void AddPlayerResources(CollectibleResourceUnit stuffUnit)
     {
-        resourcesToSpend += stuffUnit.UnitData.resourceAmountBase;
+        resourcesToSpend += stuffUnit.UnitData.resourceAmountBase + (int) (stuffUnit.UnitData.resourceAmountBase * (ArenaManager.Manager.WaveController.WaveNumber / 5));
         ArenaWorkflowManager.Manager.UpdateArenaUI();
     }
 
@@ -193,4 +195,11 @@ public class ArenaResourceManager : MonoBehaviour
             return false;
         }
     }
+
+    public void RecalculatePlayerAbilityUpgradeCost(ref PlayerAbility ability)
+    {
+        ability.currentImprovementCost = (ability.improvementCostBase + ability.currentLevel) + ((ability.improvementCostBase + ability.currentLevel) / 100 * ability.currentLevel);
+    }
+
+
 }

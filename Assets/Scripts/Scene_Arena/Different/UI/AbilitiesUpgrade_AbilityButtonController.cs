@@ -1,3 +1,4 @@
+using Spellweavers;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class AbilitiesUpgrade_AbilityButtonController : MonoBehaviour
     protected AbilitiesUpgradeScreen_CharacterStatsPaneController charStatsPane;
 
     protected Button button;
+    [SerializeField] protected string UpdateUIEvent = "UI_UpdateSkillsUpgradeScreen";
 
     protected TextMeshProUGUI abilityName;
     protected TextMeshProUGUI abilityCurrentLevelValue;
@@ -41,13 +43,18 @@ public class AbilitiesUpgrade_AbilityButtonController : MonoBehaviour
         }
     }
 
+    protected void OnDisable()
+    {
+        button.onClick.RemoveListener(OnClickListener);
+    }
+
     public void AssignAbility(string key)
     {
         abilityKey = key;
-        ProcessFeatData();
+        ProcessAbilityData();
     }
 
-    protected void ProcessFeatData()
+    protected void ProcessAbilityData()
     {
         ability = ArenaManager.Manager.Player.GetPlayerAbility(abilityKey);
 
@@ -60,20 +67,12 @@ public class AbilitiesUpgrade_AbilityButtonController : MonoBehaviour
     protected void OnClickListener()
     {
         ArenaManager.Manager.Player.AddAbility(abilityKey);
-        ProcessFeatData();
-        charStatsPane.UpdateStats();
+        ProcessAbilityData();
+        EventsDispatcher.Dispatcher.Dispatch(UpdateUIEvent);
     }
 
     protected void SetInteractibility()
     {
-        if (ability.currentImprovementCost <= ArenaResourceManager.Manager.ResourcesToSpend)
-
-        {
-            button.interactable = true;
-        }
-        else
-        {
-            button.interactable = false;
-        }
+        button.interactable = (ability.currentImprovementCost <= ArenaResourceManager.Manager.ResourcesToSpend);
     }
 }

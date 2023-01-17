@@ -1,4 +1,6 @@
+using Spellweavers;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,6 +10,11 @@ public class SpawnableMonster : SpawnableBase
     public CharacterController Controller { get => controller ?? GetComponent<CharacterController>(); }
 
     public Vector3 targetPos = Vector3.zero;
+
+    protected void Start()
+    {
+        RandomizeStats();
+    }
 
     protected void OnEnable()
     {
@@ -37,7 +44,6 @@ public class SpawnableMonster : SpawnableBase
             }
         }
         ArenaResourceManager.Manager.SpawnCollectibleResourcesMandatory(transform.position);
-        ArenaManager.Manager.DecreaseSpawnedAmount();
         Destroy(gameObject);
     }
 
@@ -56,20 +62,44 @@ public class SpawnableMonster : SpawnableBase
     {
         while (true)
         {
-            if (Mathf.Abs(transform.position.y) > 100.0f)
+            if (Mathf.Abs(transform.position.y) > 10.0f)
             {
                 Controller.enabled = false;
-                Vector3 pos = new Vector3(
-                    ArenaManager.Manager.SpawnPointPlayer.transform.position.x,
-                    2.0f,
-                    ArenaManager.Manager.SpawnPointPlayer.transform.position.z
-                    );
-                transform.position = pos;
+                transform.position = startPos;
                 Controller.enabled = true;
+                Vector3 mv = Controller.velocity * -1;
+                mv.y = -9.81f;
+                Controller.Move(mv);
             }
 
-            yield return new WaitForSeconds(1.5f);
+            yield return secondDelayObject;
         }
+    }
+
+    protected void RandomizeStats()
+    {
+        charStats.attackRangeBase = RandomizeStat(CharStats.attackRangeBase);
+        charStats.attackRange = CharStats.attackRangeBase;
+        charStats.healthBase = RandomizeStat(charStats.healthBase);
+        charStats.health = charStats.healthBase;
+        charStats.healthRegenBase = RandomizeStat(charStats.healthRegenBase);
+        charStats.healthRegen = charStats.healthRegenBase;
+        charStats.manaBase = RandomizeStat(charStats.manaBase);
+        charStats.mana = charStats.manaBase;
+        charStats.manaRegenBase = RandomizeStat(charStats.manaRegenBase);
+        charStats.manaRegen = charStats.manaRegenBase;
+        charStats.attackRangeBase = RandomizeStat(charStats.attackRangeBase);
+        charStats.attackRange = charStats.attackRangeBase;
+        charStats.attacksPerMinuteBase = RandomizeStat(charStats.attacksPerMinuteBase);
+        charStats.attacksPerMinute = charStats.attacksPerMinuteBase;
+        charStats.damageBase = RandomizeStat(charStats.damageBase);
+        charStats.damage = charStats.damageBase;
+    }
+
+    protected static float RandomizeStat (float stat)
+    {
+        float mod = 1.0f + Random.Range(-0.1f, 0.1f);
+        return (stat + stat * ArenaManager.Manager.WaveController.PerWaveStatBonus * ArenaManager.Manager.WaveController.WaveNumber) * mod;
     }
 
 }

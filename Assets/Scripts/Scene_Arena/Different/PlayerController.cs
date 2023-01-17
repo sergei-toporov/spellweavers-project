@@ -63,10 +63,9 @@ public class PlayerController : MonoBehaviour
             try
             {
                 ability.currentLevel++;
-                RecalculateAbilityUpgradeCost(ref ability);
+                ArenaResourceManager.Manager.RecalculatePlayerAbilityUpgradeCost(ref ability);
                 abilities[key] = ability;
                 RecalculateStats();
-
             }
             catch (Exception e)
             {
@@ -75,19 +74,9 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    protected bool CheckAbilityAffordability(PlayerAbility ability)
-    {
-        return ability.currentImprovementCost <= ArenaResourceManager.Manager.ResourcesToSpend;
-    }
-    
     protected void RecalculateStats()
     {
         playerObject.RecalculateStats();
-    }
-
-    protected void RecalculateAbilityUpgradeCost(ref PlayerAbility ability)
-    {
-        ability.currentImprovementCost = (ability.improvementCostBase + ability.currentLevel) + ((ability.improvementCostBase + ability.currentLevel) / 100 * ability.currentLevel);
     }
 
     public PlayerAbility GetPlayerAbility(string key)

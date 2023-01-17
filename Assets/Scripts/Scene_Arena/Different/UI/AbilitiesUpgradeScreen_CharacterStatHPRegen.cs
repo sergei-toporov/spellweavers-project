@@ -1,4 +1,4 @@
-public class FeatsUpgradeScreen_CharacterStatHPRegen : AbilitiesUpgradeScreen_CharacterStatValueBase
+public class AbilitiesUpgradeScreen_CharacterStatHPRegen : AbilitiesUpgradeScreen_CharacterStatValueBase
 {
     public override void UpdateText()
     {
